@@ -2,35 +2,18 @@ using UnityEngine;
 
 public class MoveMent : MonoBehaviour
 {
-    public float moveSpeed = 10.0f;
+    public float moveSpeed = 5f;
 
-    private void Start()
+    void Update()
     {
-        //this.transform.position = this.transform.position + Vector3.forward;
-    }
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
 
-    private void Update()
-    {
-        //this.transform.position = this.transform.position + Vector3.forward * this.moveSpeed;
+        Vector3 dir = new Vector3(h, 0, v);
+        Vector3 normalDir = dir.normalized;
 
-        if(Input.GetKey(KeyCode.W) == true)
-        {
-            this.transform.position += Vector3.forward * this.moveSpeed * Time.deltaTime;
-        }
+        transform.position += normalDir * moveSpeed * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.S) == true)
-        {
-            this.transform.position += Vector3.back * this.moveSpeed * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.A) == true)
-        {
-            this.transform.position += Vector3.left * this.moveSpeed * Time.deltaTime;
-        }
-
-        if (Input.GetKey(KeyCode.D) == true)
-        {
-            this.transform.position += Vector3.right * this.moveSpeed * Time.deltaTime;
-        }
+        transform.LookAt(transform.position + normalDir);
     }
 }
